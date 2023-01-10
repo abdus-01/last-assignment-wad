@@ -73,7 +73,7 @@ class AdminController extends Controller
             'price' => 'required',
             'description' => 'required',
         ]);
-        $date = new food;
+        $data = new food;
         $image = $request->image;
         $imagename = time().'.'.$image->getClientOriginalExtension();
         $request->image->move('foodimage', $imagename);

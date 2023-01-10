@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $data = food::all();
         $data1 = Chef::all();
-
+        
         return view('home', compact('data', 'data1'));
     }
 
@@ -29,7 +29,6 @@ class HomeController extends Controller
         } else {
             $user_id = Auth::id();
             $count = Cart::where('user_id', $user_id)->count();
-
             return view('home', compact('data', 'data1', 'count'));
         }
     }
@@ -67,8 +66,9 @@ class HomeController extends Controller
 
     public function deletecart($id)
     {
-        $data2 = Cart::findOrFail($id);
-        $data2->delete();
+        if(Auth::$id()==$id)
+        {$data2 = Cart::findOrFail($id);
+        $data2->delete();}
 
         return redirect()->back();
     }
@@ -90,7 +90,7 @@ class HomeController extends Controller
             $data->quantity = $request->quantity[$key];
             $data->name = $request->name;
             $data->address = $request->address;
-            $data->phone->$request->phone;
+            $data->phone=$request->phone;
             $data->save();
         }
 
